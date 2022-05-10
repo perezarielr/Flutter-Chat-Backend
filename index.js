@@ -1,9 +1,10 @@
 const express = require("express");
-const pach = require("path");
+const path = require("path");
 require("dotenv").config();
 
 // DB Config
 require('./database/config').dbConnection();
+
 
 // App de Express
 const app = express();
@@ -19,17 +20,17 @@ require("./sockets/socket");
 
 
 // Pach Público
-const publicPach = pach.resolve( __dirname, "public");
-app.use( express.static( publicPach ));
+const publicPath = path.resolve( __dirname, "public");
+app.use( express.static( publicPath ));
 
 // Mis Rutas
 app.use( '/api/login', require('./routes/auth') );
-
-
+app.use( '/api/usuarios', require('./routes/usuarios') );
+app.use( '/api/mensajes', require('./routes/mensajes') );
 
 server.listen( process.env.PORT, (err) => {
 
-    if (err) throw new Error(err);
+    if ( err ) throw new Error( err );
 
     console.log("Servidor corriendo en puerto", process.env.PORT );
 });
